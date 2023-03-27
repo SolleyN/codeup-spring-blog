@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Roll Dice Page</title>
+</head>
+<body>
+<h1>Roll Dice</h1>
+<p>Guess a number between 1 and 6:</p>
+<form th:action="@{/roll-dice}" method="get">
+  <input type="text" name="guess" />
+  <input type="submit" value="Roll Dice" />
+</form>
+<p>Or click one of these links to guess:</p>
+<ul>
+  <li><a th:href="@{/roll-dice/1}">1</a></li>
+  <li><a th:href="@{/roll-dice/2}">2</a></li>
+  <li><a th:href="@{/roll-dice/3}">3</a></li>
+  <li><a th:href="@{/roll-dice/4}">4</a></li>
+  <li><a th:href="@{/roll-dice/5}">5</a></li>
+  <li><a th:href="@{/roll-dice/6}">6</a></li>
+</ul>
+</body>
+</html>
