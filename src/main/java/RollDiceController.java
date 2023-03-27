@@ -19,7 +19,6 @@ public class RollDiceController {
     public String showRollDicePage(@PathVariable int guess, Model model) {
         int roll = new Random().nextInt(6) + 1;
         model.addAttribute("roll", roll);
-
         model.addAttribute("guess", guess);
         model.addAttribute("message", guess == roll ? "You guessed right!" : "You guessed wrong!");
         return "roll-dice-page";
