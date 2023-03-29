@@ -1,25 +1,31 @@
+import models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+import repositories.PostRepositories;
+import jakarta.persistence.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import  org.springframework.web.bind.annotation.RequestMapping;
+
 @Controller
-@RequestMapping("/posts")
 public class PostController {
+    private PostRepositories postsDao;
+
+    public PostController(PostRepositories postsDao) {
+        this.postsDao = postsDao;
+    }
 
     // Method to show all posts
-    @GetMapping("")
+    @GetMapping("/posts/all")
     public String index(Model model) {
         // Create a list of posts
-        List<Post> posts = new ArrayList<>();
+        List<Post> posts = new ArrayList<>(Arrays.asList(
+                new Post("First Post", "This is the first post."),
+                new Post("Second Post", "This is the second post."),
+                new Post("Third Post", "This is the third post.")
+        ));
 
-        // Add two post objects to the list
-        posts.add(new Post("First Post", "This is the first post."));
-        posts.add(new Post("Second Post", "This is the second post."));
-
-        // Add the list to the model
         model.addAttribute("posts", posts);
 
         // Return the view
@@ -27,7 +33,7 @@ public class PostController {
     }
 
     // Method to show one post
-    @GetMapping("/{id}")
+    @GetMapping("/posts/{id}")
     public String show(@PathVariable("id") Long id, Model model) {
         // Create a post object
         Post post = new Post("First Post", "This is the first post.");
@@ -38,5 +44,25 @@ public class PostController {
         // Return the view
         return "posts/show";
     }
+
+    @GetMapping("/posts/create")
+    public String showCreateForm() {
+        return "posts/create";
+    }
+
+    @PostMapping("/posts/create")
+    @ResponseBody
+    public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
+        System.out.println("title = " + title);
+        System.out.println("body = " + body);
+
+        // create post in the database
+        Post post = new Post(title, body);
+        postsDao.save(post);
+
+        // redirect to the post show page
+        return "creating post...";
+    }
 }
+
 
