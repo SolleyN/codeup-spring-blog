@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Post</title>
+    <title>Create a new post</title>
 </head>
-<body class="container">
-<h1>Create A Post</h1>
-<form th:action="@{|/posts/create|}" th:method="POST" th:object="${post}">
-    <label for="title" >Title</label>
-    <input id="title" type="text" name="title" th:field="*{title}" placeholder="Enter title">
-    <label for="body">Body</label>
-    <textarea id="body" name="body" placeholder="Enter body" th:field="*{body}"></textarea>
-    <button>Update Post</button>
+<body>
+<h1>Create a new post</h1>
+<form method="post" action="/posts/create">
+    <label for="title">Title:</label><br>
+    <input type="text" id="title" name="title"><br>
+
+    <label for="body">Body:</label><br>
+    <textarea id="body" name="body"></textarea><br>
+
+    <input type="submit" value="Create">
 </form>
 </body>
 </html>

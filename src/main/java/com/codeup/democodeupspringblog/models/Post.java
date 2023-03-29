@@ -1,4 +1,4 @@
-package models;
+package com.codeup.democodeupspringblog.models;
 
 import jakarta.persistence.*;
 
@@ -17,7 +17,7 @@ public class Post {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false, length = 1000)
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
 
 

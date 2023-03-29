@@ -1,12 +1,16 @@
-import models.Post;
+package com.codeup.democodeupspringblog;
+
+import com.codeup.democodeupspringblog.models.Post;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import repositories.PostRepositories;
-import jakarta.persistence.*;
+import com.codeup.democodeupspringblog.repositories.PostRepositories;
+import org.springframework.web.bind.annotation.GetMapping;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 @Controller
 public class PostController {
@@ -17,20 +21,20 @@ public class PostController {
     }
 
     // Method to show all posts
+
+
+    // Method to show all posts
     @GetMapping("/posts/all")
     public String index(Model model) {
-        // Create a list of posts
-        List<Post> posts = new ArrayList<>(Arrays.asList(
-                new Post("First Post", "This is the first post."),
-                new Post("Second Post", "This is the second post."),
-                new Post("Third Post", "This is the third post.")
-        ));
+        // Get all posts from the database
+        List<Post> posts = postsDao.findAll();
 
         model.addAttribute("posts", posts);
 
         // Return the view
         return "posts/index";
     }
+
 
     // Method to show one post
     @GetMapping("/posts/{id}")
@@ -47,11 +51,11 @@ public class PostController {
 
     @GetMapping("/posts/create")
     public String showCreateForm() {
+
         return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
     public String createPost(@RequestParam(name = "title") String title, @RequestParam(name = "body") String body) {
         System.out.println("title = " + title);
         System.out.println("body = " + body);
@@ -61,7 +65,7 @@ public class PostController {
         postsDao.save(post);
 
         // redirect to the post show page
-        return "creating post...";
+        return "redirect:/posts/all";
     }
 }
 
