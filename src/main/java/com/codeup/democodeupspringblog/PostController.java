@@ -8,10 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import com.codeup.democodeupspringblog.repositories.PostRepositories;
 import org.springframework.web.bind.annotation.GetMapping;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
 
 
 
@@ -61,7 +59,6 @@ public class PostController {
 
         return "posts/create";
     }
-
 
     @PostMapping("/posts/create")
     public String createPost(@ModelAttribute Post post) {
